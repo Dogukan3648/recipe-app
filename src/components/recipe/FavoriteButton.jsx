@@ -20,8 +20,17 @@ const FavoriteButton = ({ recipe }) => {
       onClick={handleFavorite}
       aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
       aria-pressed={isFavorite}
+      className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors ${
+        isFavorite
+          ? "bg-red-50 text-red-500"
+          : "bg-gray-100 text-gray-500 hover:bg-red-50 hover:text-red-500"
+      }`}
     >
-      <Heart aria-hidden="true" fill={isFavorite ? "currentColor" : "none"} />
+      <Heart
+        size={22}
+        aria-hidden="true"
+        fill={isFavorite ? "currentColor" : "none"}
+      />
     </button>
   );
 };
