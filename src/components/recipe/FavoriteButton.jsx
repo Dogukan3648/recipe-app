@@ -20,11 +20,12 @@ const FavoriteButton = ({ recipe }) => {
       onClick={handleFavorite}
       aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
       aria-pressed={isFavorite}
-      className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors ${
-        isFavorite
-          ? "bg-red-50 text-red-500"
-          : "bg-gray-100 text-gray-500 hover:bg-red-50 hover:text-red-500"
-      }`}
+      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors 
+        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 ${
+          isFavorite
+            ? "bg-red-50 text-red-500"
+            : "bg-gray-100 text-gray-500 hover:bg-red-50 hover:text-red-500"
+        }`}
     >
       <Heart
         size={22}

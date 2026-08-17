@@ -8,7 +8,11 @@ const SearchBar = ({ searchTerm, setSearchTerm }) => {
         aria-hidden="true"
         className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
       />
+      <label htmlFor="recipe-search" className="sr-only">
+        Search recipes
+      </label>
       <input
+        id="recipe-search"
         type="search"
         placeholder="Search recipes..."
         value={searchTerm}

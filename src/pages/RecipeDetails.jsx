@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
 
+import { AlertCircle, LoaderCircle, SearchX } from "lucide-react";
 import FavoriteButton from "../components/recipe/FavoriteButton";
 import IngredientList from "../components/recipe/IngredientList";
 import useRecipeDetails from "../hooks/useRecipeDetails";
@@ -12,7 +13,17 @@ const RecipeDetails = () => {
   if (isLoading) {
     return (
       <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <p className="text-lg text-gray-500">Loading...</p>
+        <div
+          className="flex items-center gap-3 text-lg text-gray-600"
+          role="status"
+        >
+          <LoaderCircle
+            size={24}
+            aria-hidden="true"
+            className="animate-spin text-orange-500"
+          />
+          <p>Loading recipe...</p>
+        </div>
       </main>
     );
   }
@@ -20,7 +31,13 @@ const RecipeDetails = () => {
   if (error) {
     return (
       <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <p className="text-lg text-red-500">{error}</p>
+        <div
+          className="flex items-center gap-3 rounded-xl border border-red-200 bg-red-50 px-6 py-4 text-red-700"
+          role="alert"
+        >
+          <AlertCircle size={22} aria-hidden="true" />
+          <p className="font-medium">{error}</p>
+        </div>
       </main>
     );
   }
@@ -28,7 +45,21 @@ const RecipeDetails = () => {
   if (!recipe) {
     return (
       <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <p className="text-lg text-gray-500">Recipe not found.</p>
+        <div className="rounded-2xl border border-dashed border-gray-300 px-6 py-12 text-center">
+          <SearchX
+            size={40}
+            aria-hidden="true"
+            className="mx-auto text-gray-300"
+          />
+
+          <p className="mt-4 text-xl font-semibold text-gray-800">
+            Recipe not found.
+          </p>
+
+          <p className="mt-2 text-gray-500">
+            The recipe you are looking for could not be found.
+          </p>
+        </div>
       </main>
     );
   }

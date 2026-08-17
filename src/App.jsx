@@ -3,6 +3,7 @@ import Footer from "./components/layout/Footer";
 import Navbar from "./components/layout/Navbar";
 import Favorites from "./pages/Favorites";
 import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
 import RecipeDetails from "./pages/RecipeDetails";
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/recipes/:id" element={<RecipeDetails />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
 

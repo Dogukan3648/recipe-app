@@ -9,7 +9,8 @@ const Footer = () => {
           <div>
             <Link
               to="/"
-              className="inline-flex items-center gap-3 text-gray-900"
+              className="inline-flex items-center gap-3 text-gray-900 
+              rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
             >
               <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500 text-white">
                 <ChefHat size={22} aria-hidden="true" />
@@ -29,14 +30,16 @@ const Footer = () => {
           >
             <Link
               to="/"
-              className="text-base font-medium text-gray-700 transition-colors hover:text-orange-600 sm:text-lg"
+              className="text-base font-medium text-gray-700 transition-colors hover:text-orange-600 sm:text-lg focus-visible:outline-none
+                focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 rounded-md"
             >
               Home
             </Link>
 
             <Link
               to="/favorites"
-              className="text-base font-medium text-gray-700 transition-colors hover:text-orange-600 sm:text-lg"
+              className="text-base font-medium text-gray-700 transition-colors hover:text-orange-600 sm:text-lg
+              focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 rounded-md focus-visible:outline-none"
             >
               Favorites
             </Link>
