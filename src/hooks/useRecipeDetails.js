@@ -5,7 +5,7 @@ import { getRecipeById } from "../api/recipeApi";
 const useRecipeDetails = (id) => {
   const {
     data: recipe,
-    isPending,
+    isLoading,
     isError,
   } = useQuery({
     queryKey: ["recipe", id],
@@ -15,7 +15,7 @@ const useRecipeDetails = (id) => {
 
   return {
     recipe,
-    isLoading: isPending,
+    isLoading,
     error: isError ? "Recipe could not be loaded." : null,
   };
 };

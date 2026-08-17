@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import { RECIPE_CATEGORIES } from "../constants/recipeCategories";
+
 const BASE_URL = "https://www.themealdb.com/api/json/v1/1";
 
 export const searchRecipes = async (searchTerm) => {
@@ -74,10 +76,12 @@ export const getRecipesByCategory = async (category) => {
 };
 
 export const getDiscoverRecipes = async () => {
-  const categories = ["Beef", "Chicken", "Seafood", "Vegetarian"];
-
   const results = await Promise.all(
-    categories.map((category) => getRecipesByCategory(category)),
+    RECIPE_CATEGORIES.map((category) => getRecipesByCategory(category)),
   );
-  return results.flatMap((recipes) => recipes.slice(0, 4));
+  return Array.from({ length: 3 }, (_, index) =>
+    results.map((result) => result[index]),
+  )
+    .flat()
+    .filter(Boolean);
 };

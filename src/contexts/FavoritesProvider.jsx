@@ -1,22 +1,25 @@
-import { createContext, useEffect, useReducer } from "react";
+import { useEffect, useReducer } from "react";
+import { FavoritesContext } from "./FavoritesContext";
 
 import { ADD_FAVORITE, REMOVE_FAVORITE } from "./actions";
 
 import { favoritesReducer, initialFavoritesState } from "./favoritesReducer";
 
-export const FavoritesContext = createContext(null);
+const FAVORITES_STORAGE_KEY = "recipe-favorites";
 
 const getInitialState = () => {
   try {
-    const storedFavorites = localStorage.getItem("recipe-favorites");
+    const storedFavorites = localStorage.getItem(FAVORITES_STORAGE_KEY);
+    if (!storedFavorites) {
+      return initialFavoritesState;
+    }
+    const parsedFavorites = JSON.parse(storedFavorites);
 
     return {
-      favorites: storedFavorites ? JSON.parse(storedFavorites) : [],
+      favorites: Array.isArray(parsedFavorites) ? parsedFavorites : [],
     };
   } catch {
-    return {
-      favorites: [],
-    };
+    return initialFavoritesState;
   }
 };
 
@@ -28,9 +31,11 @@ const FavoritesProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    localStorage.setItem("recipe-favorites", JSON.stringify(state.favorites));
+    localStorage.setItem(
+      FAVORITES_STORAGE_KEY,
+      JSON.stringify(state.favorites),
+    );
   }, [state.favorites]);
-
   const addFavorite = (recipe) => {
     const favoriteRecipe = {
       id: recipe.id,

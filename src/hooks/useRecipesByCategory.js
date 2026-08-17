@@ -5,7 +5,7 @@ import { getRecipesByCategory } from "../api/recipeApi";
 const useRecipesByCategory = (category) => {
   const {
     data: recipes = [],
-    isPending,
+    isLoading,
     isError,
   } = useQuery({
     queryKey: ["recipes", "category", category],
@@ -14,7 +14,7 @@ const useRecipesByCategory = (category) => {
   });
   return {
     recipes,
-    isLoading: isPending,
+    isLoading,
     error: isError ? "Recipes could not be loaded" : null,
   };
 };

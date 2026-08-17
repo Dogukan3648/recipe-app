@@ -1,4 +1,4 @@
-const categories = ["Beef", "Chicken", "Seafood", "Vegetarian"];
+import { RECIPE_CATEGORIES } from "../../constants/recipeCategories";
 
 const CategoryList = ({ selectedCategory, setSelectedCategory }) => {
   const buttonClass = (isActive) =>
@@ -18,7 +18,7 @@ const CategoryList = ({ selectedCategory, setSelectedCategory }) => {
         Discover
       </button>
 
-      {categories.map((category) => (
+      {RECIPE_CATEGORIES.map((category) => (
         <button
           key={category}
           type="button"
