@@ -2,14 +2,23 @@ import { AlertCircle, LoaderCircle, SearchX } from "lucide-react";
 import { useState } from "react";
 
 import CategoryList from "../components/recipe/CategoryList";
+import Pagination from "../components/recipe/Pagination";
 import RecipeGrid from "../components/recipe/RecipeGrid";
 import SearchBar from "../components/recipe/SearchBar";
+import { translations } from "../constants/translations";
 import useDiscoverRecipes from "../hooks/useDiscoverRecipes";
+import useLanguage from "../hooks/useLanguage";
 import useRecipeSearch from "../hooks/useRecipeSearch";
 import useRecipesByCategory from "../hooks/useRecipesByCategory";
 
+const RECIPES_PER_PAGE = 9;
+
 const Home = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const {
     recipes: searchResults,
@@ -32,6 +41,16 @@ const Home = () => {
     error: categoryError,
   } = useRecipesByCategory(selectedCategory);
 
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    setCurrentPage(1);
+  };
+
+  const handleSearchChange = (value) => {
+    setSearchTerm(value);
+    setCurrentPage(1);
+  };
+
   const recipes = hasSearchQuery
     ? searchResults
     : selectedCategory
@@ -50,16 +69,26 @@ const Home = () => {
       ? categoryError
       : discoverError;
 
+  const shouldPaginate = hasSearchQuery || Boolean(selectedCategory);
+
+  const startIndex = (currentPage - 1) * RECIPES_PER_PAGE;
+
+  const totalPages = Math.ceil(recipes.length / RECIPES_PER_PAGE);
+
+  const paginatedRecipes = shouldPaginate
+    ? recipes.slice(startIndex, startIndex + RECIPES_PER_PAGE)
+    : recipes;
+
   return (
     <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-        Discover Recipes
+        {t.home.title}
       </h1>
 
-      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      <SearchBar searchTerm={searchTerm} setSearchTerm={handleSearchChange} />
       <CategoryList
         selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
+        setSelectedCategory={handleCategoryChange}
       />
       {isLoading && (
         <div className="mt-10 flex items-center gap-3 text-lg text-gray-600">
@@ -68,7 +97,7 @@ const Home = () => {
             aria-hidden="true"
             className="animate-spin text-orange-500"
           />
-          <p>Loading recipes...</p>
+          <p>{t.home.loading}</p>
         </div>
       )}
       {error && (
@@ -89,15 +118,23 @@ const Home = () => {
             className="mx-auto text-gray-300"
           />
           <p className="mt-4 text-xl font-semibold text-gray-800">
-            No recipes found.
+            {t.home.noResults}
           </p>
-          <p className="mt-2 text-gray-500">
-            Try searching with a different recipe name.
-          </p>
+          <p className="mt-2 text-gray-500">{t.home.noResultsHint}</p>
         </div>
       )}
       {!isLoading && !error && recipes.length > 0 && (
-        <RecipeGrid recipes={recipes} />
+        <>
+          <RecipeGrid recipes={paginatedRecipes} />
+
+          {shouldPaginate && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          )}
+        </>
       )}
     </main>
   );

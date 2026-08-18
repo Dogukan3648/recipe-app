@@ -1,7 +1,12 @@
 import { ChefHat } from "lucide-react";
 import { Link } from "react-router";
+import { translations } from "../../constants/translations";
+import useLanguage from "../../hooks/useLanguage";
 
 const Footer = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   return (
     <footer className="mt-16 border-t border-gray-200 bg-white">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
@@ -20,7 +25,7 @@ const Footer = () => {
             </Link>
 
             <p className="mt-4 max-w-sm text-base leading-7 text-gray-600">
-              Discover delicious recipes and save your favorites for later.
+              {t.footer.description}
             </p>
           </div>
 
@@ -33,7 +38,7 @@ const Footer = () => {
               className="text-base font-medium text-gray-700 transition-colors hover:text-orange-600 sm:text-lg focus-visible:outline-none
                 focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 rounded-md"
             >
-              Home
+              {t.footer.home}
             </Link>
 
             <Link
@@ -41,13 +46,13 @@ const Footer = () => {
               className="text-base font-medium text-gray-700 transition-colors hover:text-orange-600 sm:text-lg
               focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 rounded-md focus-visible:outline-none"
             >
-              Favorites
+              {t.footer.favorites}
             </Link>
           </nav>
         </div>
 
         <div className="mt-8 flex flex-col gap-2 border-t border-gray-200 pt-6 text-base text-gray-500 sm:flex-row sm:items-center sm:justify-between">
-          <p>Powered by TheMealDB</p>
+          <p>{t.footer.poweredBy}</p>
 
           <p>© 2026 Recipe App</p>
         </div>

@@ -3,6 +3,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
 import FavoritesProvider from "./contexts/FavoritesProvider.jsx";
+import LanguageProvider from "./contexts/LanguageProvider.jsx";
 
 import App from "./App.jsx";
 import "./index.css";
@@ -11,12 +12,14 @@ const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <FavoritesProvider>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </QueryClientProvider>
-    </FavoritesProvider>
+    <LanguageProvider>
+      <FavoritesProvider>
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </QueryClientProvider>
+      </FavoritesProvider>
+    </LanguageProvider>
   </StrictMode>,
 );

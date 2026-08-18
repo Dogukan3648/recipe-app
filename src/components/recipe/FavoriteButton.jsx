@@ -1,7 +1,12 @@
 import { Heart } from "lucide-react";
+import { translations } from "../../constants/translations";
 import useFavorites from "../../hooks/useFavorites";
+import useLanguage from "../../hooks/useLanguage";
 
 const FavoriteButton = ({ recipe }) => {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   const { favorites, addFavorite, removeFavorite } = useFavorites();
 
   const isFavorite = favorites.some((favorite) => favorite.id === recipe.id);
@@ -18,7 +23,7 @@ const FavoriteButton = ({ recipe }) => {
     <button
       type="button"
       onClick={handleFavorite}
-      aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+      aria-label={isFavorite ? t.favorites.remove : t.favorites.add}
       aria-pressed={isFavorite}
       className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors 
         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 ${

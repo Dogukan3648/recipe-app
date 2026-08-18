@@ -79,7 +79,7 @@ export const getDiscoverRecipes = async () => {
   const results = await Promise.all(
     RECIPE_CATEGORIES.map((category) => getRecipesByCategory(category)),
   );
-  return Array.from({ length: 3 }, (_, index) =>
+  return Array.from({ length: 2 }, (_, index) =>
     results.map((result) => result[index]),
   )
     .flat()

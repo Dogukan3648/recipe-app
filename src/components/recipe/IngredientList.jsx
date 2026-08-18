@@ -1,7 +1,15 @@
+import { translations } from "../../constants/translations";
+import useLanguage from "../../hooks/useLanguage";
+
 const IngredientList = ({ ingredients }) => {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   return (
     <section className="rounded-3xl border border-gray-200 bg-white p-6 sm:p-8">
-      <h2 className="text-3xl font-bold text-gray-900">Ingredients</h2>
+      <h2 className="text-3xl font-bold text-gray-900">
+        {t.details.ingredients}
+      </h2>
 
       <ul className="mt-6">
         {ingredients.map((ingredient) => (

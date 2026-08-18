@@ -1,7 +1,12 @@
 import { ChefHat, Heart } from "lucide-react";
 import { NavLink } from "react-router";
+import { translations } from "../../constants/translations";
+import useLanguage from "../../hooks/useLanguage";
 
 const Navbar = () => {
+  const { language, toggleLanguage } = useLanguage();
+  const t = translations[language];
+
   const navLinkClass = ({ isActive }) =>
     `inline-flex items-center gap-2 rounded-xl px-3 py-2.5 text-base font-semibold transition-colors sm:px-5 sm:py-3 sm:text-lg focus-visible:outline-none
       focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 ${
@@ -32,8 +37,18 @@ const Navbar = () => {
         <div className="flex items-center gap-3">
           <NavLink to="/favorites" className={navLinkClass}>
             <Heart size={22} aria-hidden="true" />
-            <span>Favorites</span>
+            <span>{t.navbar.favorites}</span>
           </NavLink>
+          <button
+            type="button"
+            onClick={toggleLanguage}
+            className="rounded-xl border border-gray-300 px-3 py-2.5 text-base font-semibold text-gray-700 transition-colors hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 sm:px-4 sm:py-3 sm:text-lg"
+            aria-label={
+              language === "en" ? "Switch to Turkish" : "İngilizceye geç"
+            }
+          >
+            {language === "en" ? "TR" : "EN"}
+          </button>
         </div>
       </nav>
     </header>

@@ -1,6 +1,10 @@
 import { RECIPE_CATEGORIES } from "../../constants/recipeCategories";
+import { translations } from "../../constants/translations";
+import useLanguage from "../../hooks/useLanguage";
 
 const CategoryList = ({ selectedCategory, setSelectedCategory }) => {
+  const { language } = useLanguage();
+  const t = translations[language];
   const buttonClass = (isActive) =>
     `rounded-full px-6 py-4 text-xl font-medium transition-colors sm:text-2xl
      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 ${
@@ -15,7 +19,7 @@ const CategoryList = ({ selectedCategory, setSelectedCategory }) => {
         onClick={() => setSelectedCategory(null)}
         className={buttonClass(selectedCategory === null)}
       >
-        Discover
+        {t.categories.discover}
       </button>
 
       {RECIPE_CATEGORIES.map((category) => (
@@ -25,7 +29,7 @@ const CategoryList = ({ selectedCategory, setSelectedCategory }) => {
           onClick={() => setSelectedCategory(category)}
           className={buttonClass(selectedCategory === category)}
         >
-          {category}
+          {t.categories[category]}
         </button>
       ))}
     </section>
