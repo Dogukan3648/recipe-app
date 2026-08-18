@@ -2,8 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
 import { searchRecipes } from "../api/recipeApi";
+import { translateTexts } from "../api/translationApi";
+import useLanguage from "./useLanguage";
 
 const useRecipeSearch = () => {
+  const { language } = useLanguage();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
 
@@ -20,8 +24,22 @@ const useRecipeSearch = () => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["recipes", "search", debouncedSearchTerm],
-    queryFn: () => searchRecipes(debouncedSearchTerm),
+    queryKey: ["recipes", "search", language, debouncedSearchTerm],
+
+    queryFn: async () => {
+      if (language === "tr") {
+        const [translatedSearchTerm] = await translateTexts(
+          [debouncedSearchTerm],
+          "en",
+          "tr",
+        );
+
+        return searchRecipes(translatedSearchTerm);
+      }
+
+      return searchRecipes(debouncedSearchTerm);
+    },
+
     enabled: Boolean(debouncedSearchTerm),
   });
 
