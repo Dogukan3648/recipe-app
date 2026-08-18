@@ -9,6 +9,7 @@ const LanguageProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("recipe-language", language);
+    document.documentElement.lang = language;
   }, [language]);
 
   const toggleLanguage = () => {

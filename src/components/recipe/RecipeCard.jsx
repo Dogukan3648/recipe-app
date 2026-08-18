@@ -6,6 +6,7 @@ import FavoriteButton from "./FavoriteButton";
 const RecipeCard = ({ recipe }) => {
   const { language } = useLanguage();
   const t = translations[language];
+  const displayTitle = recipe.translatedTitle ?? recipe.title;
 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
@@ -15,7 +16,7 @@ const RecipeCard = ({ recipe }) => {
       >
         <img
           src={recipe.image}
-          alt={recipe.title}
+          alt={displayTitle}
           className="aspect-[4/3] w-full object-cover transition duration-300 group-hover:scale-105"
         />
       </Link>
@@ -30,7 +31,7 @@ const RecipeCard = ({ recipe }) => {
             to={`/recipes/${recipe.id}`}
             className="transition-colors hover:text-orange-600"
           >
-            {recipe.translatedTitle ?? recipe.title}
+            {displayTitle}
           </Link>
         </h2>
 
@@ -40,7 +41,7 @@ const RecipeCard = ({ recipe }) => {
             className="font-semibold text-orange-600 transition-colors hover:text-orange-700
             rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
           >
-            {language === "tr" ? "Tarifi Gör" : "View Recipe"}
+            {t.recipeCard.viewRecipe}
           </Link>
 
           <FavoriteButton recipe={recipe} />

@@ -22,6 +22,9 @@ export const translations = {
       Dessert: "Dessert",
       Pasta: "Pasta",
     },
+    recipeCard: {
+      viewRecipe: "View Recipe",
+    },
 
     pagination: {
       previous: "Previous",
@@ -83,6 +86,9 @@ export const translations = {
       Vegetarian: "Vejetaryen",
       Dessert: "Tatlı",
       Pasta: "Makarna",
+    },
+    recipeCard: {
+      viewRecipe: "Tarifi Gör",
     },
 
     pagination: {
