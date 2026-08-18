@@ -30,14 +30,21 @@ const useTranslatedRecipe = (recipe) => {
         }
       });
 
+      const translatableFields = fields.filter(
+        (field) => typeof field.value === "string" && field.value.trim(),
+      );
+
       const translations = await translateTexts(
-        fields.map((field) => field.value),
+        translatableFields.map((field) => field.value),
         "tr",
         "en",
       );
 
       const translatedFields = Object.fromEntries(
-        fields.map((field, index) => [field.key, translations[index]]),
+        translatableFields.map((field, index) => [
+          field.key,
+          translations[index],
+        ]),
       );
 
       return {
