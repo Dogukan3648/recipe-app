@@ -1,7 +1,12 @@
 import { Link } from "react-router";
+import { translations } from "../../constants/translations";
+import useLanguage from "../../hooks/useLanguage";
 import FavoriteButton from "./FavoriteButton";
 
 const RecipeCard = ({ recipe }) => {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
       <Link
@@ -17,7 +22,7 @@ const RecipeCard = ({ recipe }) => {
 
       <div className="flex flex-1 flex-col p-5">
         <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-orange-500">
-          {recipe.category}
+          {t.categories[recipe.category] ?? recipe.category}
         </p>
 
         <h2 className="mb-5 text-xl font-bold leading-snug text-gray-900">
@@ -25,7 +30,7 @@ const RecipeCard = ({ recipe }) => {
             to={`/recipes/${recipe.id}`}
             className="transition-colors hover:text-orange-600"
           >
-            {recipe.title}
+            {recipe.translatedTitle ?? recipe.title}
           </Link>
         </h2>
 
@@ -35,7 +40,7 @@ const RecipeCard = ({ recipe }) => {
             className="font-semibold text-orange-600 transition-colors hover:text-orange-700
             rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
           >
-            View Recipe
+            {language === "tr" ? "Tarifi Gör" : "View Recipe"}
           </Link>
 
           <FavoriteButton recipe={recipe} />

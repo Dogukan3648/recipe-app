@@ -10,6 +10,7 @@ import useDiscoverRecipes from "../hooks/useDiscoverRecipes";
 import useLanguage from "../hooks/useLanguage";
 import useRecipeSearch from "../hooks/useRecipeSearch";
 import useRecipesByCategory from "../hooks/useRecipesByCategory";
+import useTranslatedRecipes from "../hooks/useTranslatedRecipes";
 
 const RECIPES_PER_PAGE = 9;
 
@@ -79,6 +80,8 @@ const Home = () => {
     ? recipes.slice(startIndex, startIndex + RECIPES_PER_PAGE)
     : recipes;
 
+  const translatedRecipes = useTranslatedRecipes(paginatedRecipes);
+
   return (
     <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
@@ -125,7 +128,7 @@ const Home = () => {
       )}
       {!isLoading && !error && recipes.length > 0 && (
         <>
-          <RecipeGrid recipes={paginatedRecipes} />
+          <RecipeGrid recipes={translatedRecipes} />
 
           {shouldPaginate && (
             <Pagination

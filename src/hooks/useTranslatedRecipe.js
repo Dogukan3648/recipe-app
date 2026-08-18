@@ -21,6 +21,7 @@ const useTranslatedRecipe = (recipe) => {
           key: `ingredient-${index}-name`,
           value: ingredient.name,
         });
+
         if (ingredient.measure) {
           fields.push({
             key: `ingredient-${index}-measure`,
@@ -38,15 +39,15 @@ const useTranslatedRecipe = (recipe) => {
       const translatedFields = Object.fromEntries(
         fields.map((field, index) => [field.key, translations[index]]),
       );
+
       return {
         ...recipe,
-
         title: translatedFields.title ?? recipe.title,
         area: translatedFields.area ?? recipe.area,
         instructions: translatedFields.instructions ?? recipe.instructions,
+
         ingredients: recipe.ingredients.map((ingredient, index) => ({
           name: translatedFields[`ingredient-${index}-name`] ?? ingredient.name,
-
           measure:
             translatedFields[`ingredient-${index}-measure`] ??
             ingredient.measure,
