@@ -44,11 +44,17 @@ const Home = () => {
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
+    setSearchTerm("");
     setCurrentPage(1);
   };
 
   const handleSearchChange = (value) => {
     setSearchTerm(value);
+
+    if (value.trim()) {
+      setSelectedCategory(null);
+    }
+
     setCurrentPage(1);
   };
 

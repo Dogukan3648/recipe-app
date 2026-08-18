@@ -10,6 +10,12 @@ vi.mock("../hooks/useFavorites", () => ({
   default: vi.fn(),
 }));
 
+vi.mock("../hooks/useLanguage", () => ({
+  default: () => ({
+    language: "en",
+  }),
+}));
+
 const recipe = {
   id: "1",
   title: "Test Recipe",

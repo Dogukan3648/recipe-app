@@ -3,11 +3,13 @@ import RecipeGrid from "../components/recipe/RecipeGrid";
 import { translations } from "../constants/translations";
 import useFavorites from "../hooks/useFavorites";
 import useLanguage from "../hooks/useLanguage";
+import useTranslatedRecipes from "../hooks/useTranslatedRecipes";
 
 const Favorites = () => {
   const { favorites } = useFavorites();
   const { language } = useLanguage();
   const t = translations[language];
+  const translatedFavorites = useTranslatedRecipes(favorites);
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
@@ -27,7 +29,7 @@ const Favorites = () => {
         </div>
       )}
 
-      {favorites.length > 0 && <RecipeGrid recipes={favorites} />}
+      {favorites.length > 0 && <RecipeGrid recipes={translatedFavorites} />}
     </main>
   );
 };
